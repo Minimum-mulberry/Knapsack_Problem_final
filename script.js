@@ -1,8 +1,5 @@
 
 function visualizeKnapsack() {
-    
-    alert("JS connected! ✅");
-  
     // Get inputs
     const numItems = parseInt(document.getElementById("numItems").value);
     const weightsInput = document.getElementById("weights").value;

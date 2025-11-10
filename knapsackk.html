@@ -2,106 +2,233 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Visualizer</title>
-    <link rel="stylesheet" href="styles.css">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
-        <link rel="icon" href="backpack2-fill.svg" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>0/1 Knapsack Visualizer</title>
+  <link rel="stylesheet" href="styles.css">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+  <link rel="icon" href="backpack2-fill.svg" />
+
+  <style>
+    /* 🎯 Table Design */
+    .rounded-table {
+      border-radius: 15px;
+      overflow: hidden;
+      border: 2px solid #dee2e6;
+      box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
+      width: auto !important;
+      margin: 0 auto;
+      background: #fff;
+    }
+
+    .rounded-table th,
+    .rounded-table td {
+      border: 1px solid #dee2e6;
+      padding: 6px 8px;
+      text-align: center;
+      vertical-align: middle;
+      font-size: 0.9rem;
+    }
+
+    /* 💻 Code Card */
+    #codeCard {
+      border-radius: 15px;
+      background-color: #1e1e1e;
+      color: #fff;
+      width: 350px;
+      min-height: 380px;
+    }
+
+    #codeDisplay {
+      white-space: pre-wrap;
+      font-family: "Courier New", monospace;
+      font-size: 0.9rem;
+    }
+
+    .highlight-line {
+      background-color: rgba(255, 255, 0, 0.3);
+      border-left: 3px solid #ffb400;
+      padding-left: 6px;
+      transition: background-color 0.3s ease;
+    }
+
+    /* Layout */
+    #visualizationWrapper {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 25px;
+      justify-content: center;
+      align-items: flex-start;
+      margin-top: 30px;
+    }
+
+    #visualizationContainer {
+      flex: 1;
+      min-width: 400px;
+      max-width: 600px;
+    }
+
+    /* 🎮 Controls */
+    #viz-controls button {
+      min-width: 100px;
+      font-weight: 500;
+    }
+  </style>
 </head>
 
 <body>
-    <section>
-        <div class="container">
-          <header class="py-3 mb-4 border-bottom">
-            <div class="d-flex flex-column flex-md-row align-items-center justify-content-between">
-      
-              <!-- Left side: Logo + Title -->
-              <a href="index.html" class="d-flex align-items-center mb-3 mb-md-0 text-decoration-none" style="color: inherit;">
-                <svg xmlns="http://www.w3.org/2000/svg" height="25" fill="currentColor" class="bi bi-backpack2-fill me-2"
-                  viewBox="0 0 16 16">
-                  <path d="M5 13h6v-3h-1v.5a.5.5 0 0 1-1 0V10H5z" />
-                  <path
-                    d="M6 2v.341C3.67 3.165 2 5.388 2 8v1.191l-1.17.585A1.5 1.5 0 0 0 0 11.118V13.5A1.5 1.5 0 0 0 1.5 15h1c.456.607 1.182 1 2 1h7c.818 0 1.544-.393 2-1h1a1.5 1.5 0 0 0 1.5-1.5v-2.382a1.5 1.5 0 0 0-.83-1.342L14 9.191V8a6 6 0 0 0-4-5.659V2a2 2 0 1 0-4 0m2-1a1 1 0 0 1 1 1v.083a6 6 0 0 0-2 0V2a1 1 0 0 1 1-1m0 3a4 4 0 0 1 3.96 3.43.5.5 0 1 1-.99.14 3 3 0 0 0-5.94 0 .5.5 0 1 1-.99-.14A4 4 0 0 1 8 4M4.5 9h7a.5.5 0 0 1 .5.5v4a.5.5 0 0 1-.5.5h-7a.5.5 0 0 1-.5-.5v-4a.5.5 0 0 1 .5-.5" />
-                </svg>
-                <span class="fs-4 fw-normal">0/1 Knapsack</span>
-              </a>
-      
-              <!-- Right side: Navigation links -->
-              <ul class="nav nav-pills mt-3 mt-md-0">
-                <li class="nav-item">
-                  <a href="index.html" class="nav-link px-3 text-bg-dark" aria-current="page">Home</a>
-                </li>
-                <li class="nav-item">
-                  <a href="knapsackk.html" class="nav-link px-3 text-dark">Visualizer</a>
-                </li>
-              </ul>
-      
-            </div>
-          </header>
-        </div>
-      </section>
-    <section id="input-section">
-        <div class="containers">
-            <div class="card shadow p-4 " style="width: 30rem">
-                <div class="card-header text-bg-dark ">
-                    Enter the number of items, their weights and values, and the knapsack capacity.
-                </div>
-                <ul class="list-group list-group-flush">
-                    <li class="list-group-item mb-3 ">
-                        <p>Number of Items : <input type="number" id="numItems" class="form-control form-label"></p>
-                    </li>
-                    <li class="list-group-item mb-3 ">
-                        <p>Weights : <input type="text" id="weights" class="form-control form-label"></p>
-                    </li>
-                    <li class="list-group-item mb-3">
-                        <p>Values : <input type="text" id="values" class="form-control form-label"></p>
-                    </li>
-                    <li class="list-group-item mb-3">
-                        <p>Capacity : <input type="number" id="capacity" class="form-control form-label"></p>
-                    </li>
-                    <li class="list-group-item "><button class="button btn btn-dark"
-                            onclick="visualizeKnapsack()">Visualize</button></li>
-                </ul>
-            </div>
-        </div>
+  <!-- 🧭 HEADER -->
+  <section>
+    <div class="container">
+      <header class="py-3 mb-4 border-bottom">
+        <div class="d-flex flex-column flex-md-row align-items-center justify-content-between">
+          <a href="index.html" class="d-flex align-items-center mb-3 mb-md-0 text-decoration-none"
+            style="color: inherit;">
+            <svg xmlns="http://www.w3.org/2000/svg" height="25" fill="currentColor"
+              class="bi bi-backpack2-fill me-2" viewBox="0 0 16 16">
+              <path d="M5 13h6v-3h-1v.5a.5.5 0 0 1-1 0V10H5z" />
+              <path
+                d="M6 2v.341C3.67 3.165 2 5.388 2 8v1.191l-1.17.585A1.5 1.5 0 0 0 0 11.118V13.5A1.5 1.5 0 0 0 1.5 15h1c.456.607 1.182 1 2 1h7c.818 0 1.544-.393 2-1h1a1.5 1.5 0 0 0 1.5-1.5v-2.382a1.5 1.5 0 0 0-.83-1.342L14 9.191V8a6 6 0 0 0-4-5.659V2a2 2 0 1 0-4 0m2-1a1 1 0 0 1 1 1v.083a6 6 0 0 0-2 0V2a1 1 0 0 1 1-1m0 3a4 4 0 0 1 3.96 3.43.5.5 0 1 1-.99.14 3 3 0 0 0-5.94 0 .5.5 0 1 1-.99-.14A4 4 0 0 1 8 4M4.5 9h7a.5.5 0 0 1 .5.5v4a.5.5 0 0 1-.5.5h-7a.5.5 0 0 1-.5-.5v-4a.5.5 0 0 1 .5-.5" />
+            </svg>
+            <span class="fs-4 fw-normal">0/1 Knapsack</span>
+          </a>
 
-    </section>
-    <div id="visualizationArea" class="mt-4 container"></div>
-
-    <!-- 🧾 Result Summary Card -->
-    <div id="resultCard" class="card mt-4 shadow text-center border-dark" style="display: none;">
-        <div class="card-header bg-dark text-white fs-5">
-             Result Summary
+          <ul class="nav nav-pills mt-3 mt-md-0">
+            <li class="nav-item">
+              <a href="index.html" class="nav-link px-3 text-bg-dark">Home</a>
+            </li>
+            <li class="nav-item">
+              <a href="knapsackk.html" class="nav-link px-3 text-dark">Visualizer</a>
+            </li>
+          </ul>
         </div>
-        <div class="card-body">
-            <p class="card-text"><strong> Maximum Value:</strong> <span id="maxValue">-</span></p>
-            <p class="card-text"><strong> Items Selected:</strong> <span id="itemsSelected">-</span></p>
-            <p class="card-text"><strong>⚖️Total Weight Used:</strong> <span id="totalWeight">-</span></p>
-        </div>
+      </header>
     </div>
-    <section>
-        <div class="container">
-            <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top">
-                <p class="col-md-4 mb-0 text-body-secondary">© Knapsack</p> <a href="/"
-                    class="col-md-4 d-flex align-items-center justify-content-center mb-3 mb-md-0 me-md-auto link-body-emphasis text-decoration-none"
-                    aria-label="Bootstrap"> <svg class="bi me-2" width="40" height="32" aria-hidden="true">
-                        <use xlink:href="#bootstrap"></use>
-                    </svg> </a>
-                <ul class="nav col-md-4 justify-content-end">
-                    <li class="nav-item"><a href="index.html" class="nav-link px-2 text-body-secondary">Home</a></li>
-                    <li class="nav-item"><a href="knapsackk.html" class="nav-link px-2 text-body-secondary">Visualizer</a>
-                    </li>
+  </section>
 
-                </ul>
-            </footer>
+  <!-- 🧮 INPUT SECTION -->
+  <section id="input-section">
+    <div class="containers">
+      <div class="card shadow p-4" style="width: 30rem;">
+        <div class="card-header text-bg-dark">
+          Enter the number of items, their weights and values, and the knapsack capacity.
         </div>
-    </section>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
-        crossorigin="anonymous"></script>
-    <script src="script.js"></script>
-</body>
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item mb-3">
+            <p>Number of Items : <input type="number" id="numItems" class="form-control form-label"></p>
+          </li>
+          <li class="list-group-item mb-3">
+            <p>Weights : <input type="text" id="weights" class="form-control form-label"></p>
+          </li>
+          <li class="list-group-item mb-3">
+            <p>Values : <input type="text" id="values" class="form-control form-label"></p>
+          </li>
+          <li class="list-group-item mb-3">
+            <p>Capacity : <input type="number" id="capacity" class="form-control form-label"></p>
+          </li>
+          <li class="list-group-item">
+            <button class="btn btn-dark w-100" onclick="visualizeKnapsack()">Visualize</button>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </section>
 
+  <!-- 🎮 Control Buttons -->
+  <div id="viz-controls" class="container d-flex gap-2 justify-content-center my-4">
+    <button id="startBtn" class="btn btn-success">Start ▶</button>
+    <button id="pauseBtn" class="btn btn-warning">Pause ⏸</button>
+    <button id="nextBtn" class="btn btn-primary">Next Step ⏭</button>
+    <button id="resetBtn" class="btn btn-danger">Reset ⟲</button>
+  </div>
+
+  <!-- 🧩 Visualization + Code Side-by-Side -->
+  <div id="visualizationWrapper" class="container">
+    <!-- Visualization Area -->
+    <div id="visualizationContainer">
+      <div id="stepBox" class="alert alert-info text-center fw-medium">
+        💡 Steps will appear here while the algorithm runs.
+      </div>
+      <div id="visualizationArea" class="mt-3"></div>
+    </div>
+
+    <!-- Code Display Card -->
+    <div id="codeCard" class="card shadow text-white">
+      <div class="card-header text-center fw-bold border-bottom">💻 Algorithm Steps</div>
+      <div class="card-body">
+        <pre id="codeDisplay"></pre>
+      </div>
+    </div>
+  </div>
+
+  <!-- 📘 Short Understanding Section -->
+  <div id="knapsack-explanation" class="container">
+    <h2>🧩 Understanding How the Table Works</h2>
+  
+    <p>
+      Each cell in the above table shows the <b>maximum value</b> that can be achieved 
+      using the first <b>i items</b> with a total knapsack capacity of <b>w</b>.
+    </p>
+  
+    <p>
+      The table is filled <b>row by row</b> (for each item) and <b>column by column</b> 
+      (for each capacity). For every cell <code>dp[i][w]</code>:
+    </p>
+  
+    <ul>
+      <li>✅ If the current item’s weight ≤ current capacity <code>(weight[i-1] ≤ w)</code>, we have two choices:</li>
+      <ul>
+        <li><b>Exclude</b> the item → take the value from the cell above <code>(dp[i-1][w])</code>.</li>
+        <li><b>Include</b> the item → add the item’s value to the remaining capacity’s result <code>(value[i-1] + dp[i-1][w - weight[i-1]])</code>.</li>
+      </ul>
+      <li>🚫 If the item’s weight is greater than capacity, we cannot include it, so we copy the value from the cell above.</li>
+    </ul>
+  
+    <p class="formula">
+      <b>Formula:</b><br>
+      <code>dp[i][w] = max( dp[i-1][w], value[i-1] + dp[i-1][w - weight[i-1]] )</code>
+    </p>
+  
+    <p>
+      The <b>bottom-right cell</b> of the table gives the <b>maximum value possible</b> 
+      for the given knapsack capacity.  
+      After filling the table, we can <b>backtrack</b> from this cell to see which items 
+      were included in the final solution.
+    </p>
+  
+    <div class="tip-box">
+      💡 <b>Tip:</b> If the value in <code>dp[i][w]</code> is different from the one above it 
+      (<code>dp[i-1][w]</code>), it means the current item was included.
+    </div>
+  </div>
+
+  <!-- 🧾 Result Card -->
+  <div id="resultCard" class="card mt-4 shadow text-center border-dark" style="display: none;">
+    <div class="card-header bg-dark text-white fs-5">Result Summary</div>
+    <div class="card-body">
+      <p class="card-text"><strong>Maximum Value:</strong> <span id="maxValue">-</span></p>
+      <p class="card-text"><strong>Items Selected:</strong> <span id="itemsSelected">-</span></p>
+      <p class="card-text"><strong>⚖️ Total Weight Used:</strong> <span id="totalWeight">-</span></p>
+    </div>
+  </div>
+
+  <!-- 🦶 FOOTER -->
+  <section>
+    <div class="container">
+      <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top">
+        <p class="col-md-4 mb-0 text-body-secondary">© Knapsack Visualizer</p>
+        <ul class="nav col-md-4 justify-content-end">
+          <li class="nav-item"><a href="index.html" class="nav-link px-2 text-body-secondary">Home</a></li>
+          <li class="nav-item"><a href="knapsackk.html" class="nav-link px-2 text-body-secondary">Visualizer</a></li>
+        </ul>
+      </footer>
+    </div>
+  </section>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+    crossorigin="anonymous"></script>
+  <script src="script.js"></script>
+</body>
 </html>

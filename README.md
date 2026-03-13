@@ -2,6 +2,8 @@
 
 A web-based interactive visualization tool for understanding and solving the classic **0/1 Knapsack Problem** using Dynamic Programming (DP). 
 
+🌍 **Live Demo:** [https://minimum-mulberry.github.io/Knapsack_Problem_final/](https://minimum-mulberry.github.io/Knapsack_Problem_final/)
+
 ## 🌟 Overview
 
 The 0/1 Knapsack Problem involves selecting items with given weights and values to maximize total value without exceeding the bag’s capacity. Each item can either be taken or left (binary choice - 0/1), making it a fundamental optimization problem in computer science.
